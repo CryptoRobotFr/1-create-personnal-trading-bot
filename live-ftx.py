@@ -5,14 +5,14 @@ import time
 import json
 from math import *
 
-accountName = 'Ytb-Tester'
+accountName = ''
 pairSymbol = 'BTC/USD'
 fiatSymbol = 'USD'
 cryptoSymbol = 'BTC'
 myTruncate = 4
 
-client = ftx.FtxClient(api_key='xL6SYTqmHtawoCaihqkoqlCtW_q_vfJ6-xVZlnh6',
-                   api_secret='em2tgTy47IblAubmT18_yIAMwzDVXoTnM2hHCvWm', subaccount_name=accountName)
+client = ftx.FtxClient(api_key='',
+                   api_secret='', subaccount_name=accountName)
 
 data = client.get_historical_data(
     market_name=pairSymbol, 
@@ -53,7 +53,7 @@ if float(fiatAmount) > 5 and df['SMA200'].iloc[-2] > df['SMA600'].iloc[-2]:
         type='market')
     print(buyOrder)
 
-if float(cryptoAmount) > 0.0001 and df['SMA200'].iloc[-2] < df['SMA600'].iloc[-2]:
+elif float(cryptoAmount) > 0.0001 and df['SMA200'].iloc[-2] < df['SMA600'].iloc[-2]:
     buyOrder = client.place_order(
         market=pairSymbol, 
         side="sell", 
@@ -61,3 +61,5 @@ if float(cryptoAmount) > 0.0001 and df['SMA200'].iloc[-2] < df['SMA600'].iloc[-2
         size=truncate(cryptoAmount, myTruncate), 
         type='market')
     print(buyOrder)
+else :
+  print("No opportunity")
